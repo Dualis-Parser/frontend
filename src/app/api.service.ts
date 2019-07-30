@@ -60,6 +60,6 @@ export class ApiService {
     params = params.append('username', email);
     params = params.append('password', password);
 
-    return await this.httpClient.get<UserDataResponse>('http://localhost:8081/dualis/user', {params}).toPromise();
+    return await this.httpClient.get<UserDataResponse>('https://api.gahr.dev/dualis/user', {params}).toPromise();
   }
 }
