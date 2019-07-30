@@ -1,0 +1,39 @@
+<ngx-loading [show]="loading"
+             [config]="{animationType: ngxLoadingAnimationTypes.rectangleBounce, primaryColour: '#fff', secondaryColour: '#ccc', backdropBorderRadius: '3px'}"
+             [template]="loadingTemplate"></ngx-loading>
+
+<div *ngIf="!loading">
+  <p class="h2 mb-5">Hello {{data.name}}
+    <a *ngIf="cached && secondDiff < 120" class="h4">
+      <span class="badge badge-primary">Cached results, <b>{{ 120 - secondDiff }}</b> seconds left</span>
+    </a>
+    <a *ngIf="cached && secondDiff >= 120" class="h4">
+      <span class="badge badge-primary">Ready to update</span>
+    </a>
+  </p>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Module</th>
+      <th scope="col">Unit</th>
+      <th scope="col">Grade</th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let module of data.modules">
+    <tr
+      class="table-{{module.passed ? 'success' :  module.passed === null ? 'primary' : 'danger'}} {{module.module_no}}">
+      <th scope="col">{{ module.module_name }} ({{module.credits}})</th>
+      <td></td>
+      <th>{{ module.final_grade }}{{module.passed ? " (passed)" : ""}}
+      </th>
+    </tr>
+    <tr *ngFor="let grade of module.grades">
+      <th scope="col"></th>
+      <td>{{grade.name}}</td>
+      <td>{{grade.grade}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

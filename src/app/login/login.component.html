@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row justify-content-center align-items-center mt-5">
+    <div class="col-lg-6 col-md-8 col-sm-10 col-12">
+      <div class="card">
+        <ngx-loading [show]="loading"
+                     [config]="{animationType: ngxLoadingAnimationTypes.rectangleBounce, primaryColour: '#fff', secondaryColour: '#ccc', backdropBorderRadius: '3px'}"
+                     [template]="loadingTemplate"></ngx-loading>
+        <div class="card-body">
+          <div
+            *ngIf="(angForm.controls['password'].invalid && (angForm.controls['password'].dirty || angForm.controls['password'].touched)) ||
+                (angForm.controls['username'].invalid && (angForm.controls['username'].dirty || angForm.controls['username'].touched)) ||
+                 error"
+            class="alert alert-danger" role="alert">
+            <strong *ngIf="!error">Required field(s) missing</strong>
+            <strong *ngIf="error">{{error}}</strong>
+          </div>
+          <form [formGroup]="angForm" novalidate (ngSubmit)="angForm.valid && onSubmit()">
+            <div class="form-group">
+              <label for="username">Email address</label>
+              <input type="text" name="username" class="form-control" id="username"
+                     aria-describedby="userHelp" placeholder="Enter username" formControlName="username">
+              <small id="userHelp" class="form-text text-muted">Your DHBW username <b>with or without</b> the
+                email suffix
+              </small>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" name="password" class="form-control" id="password"
+                     placeholder="Password" formControlName="password">
+            </div>
+            <button type="submit" [disabled]="angForm.pristine || angForm.invalid" class="btn btn-primary">Submit
+            </button>
+            <div class="alert alert-info mt-4" role="alert">
+              By submitting you agree that your provided data is stored temporarily to login on <a
+              href="https://dualis.dhbw.de">dualis.dhbw.de</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
