@@ -48,7 +48,7 @@ export class ApiService {
     params = params.append('password', password);
 
     try {
-      const result = await this.httpClient.get<UserValidation>('http://localhost:8081/dualis/user/validate', {params}).toPromise();
+      const result = await this.httpClient.get<UserValidation>('https://api.gahr.dev/dualis/user/validate', {params}).toPromise();
       return result.code === 200 && result.data;
     } catch (e) {
       return false;
