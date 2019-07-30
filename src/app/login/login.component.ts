@@ -12,8 +12,8 @@ import {ngxLoadingAnimationTypes, NgxLoadingComponent} from 'ngx-loading';
 })
 export class LoginComponent implements OnInit {
   angForm: FormGroup;
-  private error: string;
-  private loading = false;
+  error: string;
+  loading = false;
 
   @ViewChild('ngxLoading') ngxLoadingComponent: NgxLoadingComponent;
   @ViewChild('customLoadingTemplate') customLoadingTemplate: TemplateRef<any>;
