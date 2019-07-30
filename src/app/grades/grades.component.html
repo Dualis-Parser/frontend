@@ -12,6 +12,14 @@
     </a>
   </p>
 
+  <mat-form-field>
+    <mat-label>Semesters</mat-label>
+    <mat-select [formControl]="semesters" (selectionChange)="changeSelection()" multiple required>
+      <mat-option *ngFor="let semester of data.semesters" [value]="semester">{{semester}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
   <table class="table">
     <thead>
     <tr>
@@ -20,7 +28,7 @@
       <th scope="col">Grade</th>
     </tr>
     </thead>
-    <tbody *ngFor="let module of data.modules">
+    <tbody *ngFor="let module of visualModules">
     <tr
       class="table-{{module.passed ? 'success' :  module.passed === null ? 'primary' : 'danger'}} {{module.module_no}}">
       <th scope="col">{{ module.module_name }} ({{module.credits}})</th>

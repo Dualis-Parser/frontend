@@ -13,7 +13,7 @@ import {NgxLoadingModule} from 'ngx-loading';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './angular-material.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {MatButtonModule} from '@angular/material';
+import {MatButtonModule, MatFormFieldModule, MatSelectModule} from '@angular/material';
 import {LogoutComponent} from './logout/logout.component';
 
 @NgModule({
@@ -34,7 +34,9 @@ import {LogoutComponent} from './logout/logout.component';
     NgxLoadingModule.forRoot({}),
     BrowserAnimationsModule,
     AngularMaterialModule,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent],

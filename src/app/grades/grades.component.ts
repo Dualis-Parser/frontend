@@ -2,6 +2,7 @@ import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ApiService} from '../api.service';
 import {Router} from '@angular/router';
 import {ngxLoadingAnimationTypes, NgxLoadingComponent} from 'ngx-loading';
+import {FormControl} from '@angular/forms';
 
 
 @Component({
@@ -11,9 +12,12 @@ import {ngxLoadingAnimationTypes, NgxLoadingComponent} from 'ngx-loading';
 })
 export class GradesComponent implements OnInit {
   data;
+  visualModules;
   loading = true;
   secondDiff;
   cached = false;
+
+  semesters = new FormControl();
 
   @ViewChild('ngxLoading') ngxLoadingComponent: NgxLoadingComponent;
   @ViewChild('customLoadingTemplate') customLoadingTemplate: TemplateRef<any>;
@@ -59,7 +63,15 @@ export class GradesComponent implements OnInit {
         this.data = JSON.parse(sessionStorage.getItem('userData'));
       }
     }
+    this.semesters.setValue(this.data.semesters);
+    this.visualModules = this.data.modules;
     this.loading = false;
+  }
+
+  changeSelection() {
+    if (this.semesters.valid) {
+      this.visualModules = this.data.modules.filter(module => this.semesters.value.some(sem => module.semesters.includes(sem)));
+    }
   }
 
 }
