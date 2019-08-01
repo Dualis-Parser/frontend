@@ -15,8 +15,6 @@ export class LoginComponent implements OnInit {
   error: string;
   loading = false;
 
-  @ViewChild('ngxLoading') ngxLoadingComponent: NgxLoadingComponent;
-  @ViewChild('customLoadingTemplate') customLoadingTemplate: TemplateRef<any>;
   public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
   public loadingTemplate: TemplateRef<any>;
 

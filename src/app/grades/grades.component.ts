@@ -19,8 +19,6 @@ export class GradesComponent implements OnInit {
 
   semesters = new FormControl();
 
-  @ViewChild('ngxLoading') ngxLoadingComponent: NgxLoadingComponent;
-  @ViewChild('customLoadingTemplate') customLoadingTemplate: TemplateRef<any>;
   public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
   public loadingTemplate: TemplateRef<any>;
 
