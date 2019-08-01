@@ -1,7 +1,7 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {ApiService} from '../api.service';
 import {Router} from '@angular/router';
-import {ngxLoadingAnimationTypes, NgxLoadingComponent} from 'ngx-loading';
+import {ngxLoadingAnimationTypes} from 'ngx-loading';
 import {FormControl} from '@angular/forms';
 
 
@@ -26,6 +26,20 @@ export class GradesComponent implements OnInit {
   }
 
   async ngOnInit() {
+    await this.refresh();
+  }
+
+  changeSelection() {
+    if (this.semesters.valid) {
+      this.visualModules = this.data.modules.filter(module => this.semesters.value.some(sem => module.semesters.includes(sem)));
+    }
+  }
+
+  async refresh() {
+    this.loading = true;
+    if (this.cached) {
+      this.cached = false;
+    }
     const user = sessionStorage.getItem('username');
     const password = sessionStorage.getItem('password');
     if (!(await this.api.isUserAuthenticated(user, password))) {
@@ -65,11 +79,4 @@ export class GradesComponent implements OnInit {
     this.visualModules = this.data.modules;
     this.loading = false;
   }
-
-  changeSelection() {
-    if (this.semesters.valid) {
-      this.visualModules = this.data.modules.filter(module => this.semesters.value.some(sem => module.semesters.includes(sem)));
-    }
-  }
-
 }
