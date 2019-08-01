@@ -64,12 +64,18 @@ export class GradesComponent implements OnInit {
 
       if (reload) {
         this.data = (await this.api.getUserModules(user, password)).data;
+        // put failed modules at front
+        for (let i = 0; i < this.data.modules.length; i++) {
+          if (this.data.modules[i].passed === false && i !== 0) {
+            this.data.modules.unshift(this.data.modules[i]);
+            this.data.modules.splice(i + 1, 1);
+          }
+        }
         sessionStorage.setItem('userData', JSON.stringify(this.data));
         sessionStorage.setItem('cacheTime', new Date().toUTCString());
       } else {
         this.cached = true;
         const cacheTime = new Date(sessionStorage.getItem('cacheTime'));
-
         setInterval(() => this.secondDiff = Math.round((new Date().getTime() - cacheTime.getTime()) / 1000), 1000);
 
         this.data = JSON.parse(sessionStorage.getItem('userData'));
