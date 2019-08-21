@@ -46,7 +46,7 @@ export class ApiService {
     params = params.append('password', password);
 
     try {
-      const result = await this.httpClient.post<UserValidation>('http://localhost:9003/backend/login', params, {withCredentials: true}).toPromise();
+      const result = await this.httpClient.post<UserValidation>('https://dualis.gahr.dev/backend/login', params, {withCredentials: true}).toPromise();
       return result.data;
     } catch (e) {
       return false;
@@ -54,10 +54,10 @@ export class ApiService {
   }
 
   async getUserModules() {
-    return await this.httpClient.get<UserDataResponse>('http://localhost:9003/backend/modules', {withCredentials: true}).toPromise();
+    return await this.httpClient.get<UserDataResponse>('https://dualis.gahr.dev/backend/modules', {withCredentials: true}).toPromise();
   }
 
   async logout() {
-    await this.httpClient.get<UserDataResponse>('http://localhost:9003/backend/logout', {withCredentials: true}).toPromise();
+    await this.httpClient.get<UserDataResponse>('https://dualis.gahr.dev/backend/logout', {withCredentials: true}).toPromise();
   }
 }
