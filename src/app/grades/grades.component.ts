@@ -63,7 +63,12 @@ export class GradesComponent implements OnInit {
       }
 
       if (reload) {
-        this.data = (await this.api.getUserModules(user, password)).data;
+        try {
+          this.data = (await this.api.getUserModules()).data;
+        } catch (e) {
+          await this.api.logout();
+          await this.router.navigate(['/login']);
+        }
         // put failed modules at front
         for (let i = 0; i < this.data.modules.length; i++) {
           if (this.data.modules[i].passed === false && i !== 0) {

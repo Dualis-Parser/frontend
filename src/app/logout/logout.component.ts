@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {NavbarComponent} from '../navbar/navbar.component';
+import {ApiService} from '../api.service';
 
 @Component({
   selector: 'app-logout',
@@ -9,12 +10,12 @@ import {NavbarComponent} from '../navbar/navbar.component';
 })
 export class LogoutComponent implements OnInit {
 
-  constructor(private router: Router) {
+  constructor(private api: ApiService, private router: Router) {
   }
 
-  ngOnInit() {
-    sessionStorage.clear();
-    this.router.navigate(['/']);
+  async ngOnInit() {
+    await this.api.logout();
+    await this.router.navigate(['/']);
   }
 
 }
