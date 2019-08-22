@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../api.service';
-import {isNullOrUndefined} from 'util';
 import {Router} from '@angular/router';
 
 @Component({
@@ -19,8 +18,6 @@ export class NavbarComponent implements OnInit {
   }
 
   isLoggedIn() {
-    const user = sessionStorage.getItem('username');
-    const password = sessionStorage.getItem('password');
-    return !(isNullOrUndefined(user) || isNullOrUndefined(password));
+    return sessionStorage.loggedIn === 'true';
   }
 }

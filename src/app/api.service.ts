@@ -47,8 +47,11 @@ export class ApiService {
 
     try {
       const result = await this.httpClient.post<UserValidation>('https://dualis.gahr.dev/backend/login', params, {withCredentials: true}).toPromise();
+
+      sessionStorage.loggedIn = result.data;
       return result.data;
     } catch (e) {
+      sessionStorage.loggedIn = false;
       return false;
     }
   }
@@ -58,6 +61,9 @@ export class ApiService {
   }
 
   async logout() {
-    await this.httpClient.get<UserDataResponse>('https://dualis.gahr.dev/backend/logout', {withCredentials: true}).toPromise();
+    try {
+      return await this.httpClient.get('https://dualis.gahr.dev/backend/logout', {withCredentials: true}).toPromise();
+    } catch (e) {
+    }
   }
 }

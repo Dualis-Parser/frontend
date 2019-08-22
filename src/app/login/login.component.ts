@@ -1,9 +1,8 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {ApiService} from '../api.service';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {isNullOrUndefined, isUndefined} from 'util';
-import {ngxLoadingAnimationTypes, NgxLoadingComponent} from 'ngx-loading';
+import {ngxLoadingAnimationTypes} from 'ngx-loading';
 
 @Component({
   selector: 'app-login',
@@ -30,17 +29,13 @@ export class LoginComponent implements OnInit {
   }
 
   async ngOnInit() {
-    const user = sessionStorage.getItem('username');
-    const password = sessionStorage.getItem('password');
-    if (!isNullOrUndefined(user) && !isNullOrUndefined(password)) {
-      this.loading = true;
-      if (!(await this.api.isUserAuthenticated(user, password))) {
-        console.log('False');
-      } else {
-        await this.router.navigate(['/grades']);
-      }
-      this.loading = false;
+    this.loading = true;
+    if (!(await this.api.isUserAuthenticated('', ''))) {
+
+    } else {
+      await this.router.navigate(['/grades']);
     }
+    this.loading = false;
   }
 
   async onSubmit() {
@@ -53,8 +48,6 @@ export class LoginComponent implements OnInit {
     if (!(await this.api.isUserAuthenticated(username, password))) {
       this.error = 'Invalid username or password. Try again.';
     } else {
-      sessionStorage.setItem('username', username);
-      sessionStorage.setItem('password', password);
       await this.router.navigate(['/grades']);
     }
     this.loading = false;
