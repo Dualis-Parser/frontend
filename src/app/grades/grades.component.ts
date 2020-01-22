@@ -44,6 +44,7 @@ export class GradesComponent implements OnInit {
     const password = sessionStorage.getItem('password');
     if (!(await this.api.isUserAuthenticated(user, password))) {
       await this.router.navigate(['/login']);
+      return;
     } else {
       let isJson = false;
       try {
@@ -68,6 +69,7 @@ export class GradesComponent implements OnInit {
         } catch (e) {
           await this.api.logout();
           await this.router.navigate(['/login']);
+          return;
         }
         // put failed modules at front
         for (let i = 0; i < this.data.modules.length; i++) {
