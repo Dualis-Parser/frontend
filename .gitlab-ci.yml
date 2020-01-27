@@ -64,7 +64,7 @@ Build dev:
       - dist/*
   allow_failure: true
 
-Deploy release:
+.Deploy release:
   stage: deploy
   cache: {}  # no cache required for deployment
   script:
@@ -73,7 +73,7 @@ Deploy release:
   only:
     - master
 
-Deploy dev:
+.Deploy dev:
   stage: deploy
   cache: {}  # no cache required for deployment
   script:
