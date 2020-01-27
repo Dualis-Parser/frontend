@@ -1,0 +1,83 @@
+# Keep mode_modules between jobs (results in lower build times)
+cache: &global_cache
+  untracked: true
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+  policy: pull
+
+stages:
+  - install
+  - verify
+  - build
+#  - deploy
+
+Install dependencies:
+  cache:
+    # inherit all global cache settings
+    <<: *global_cache
+    # override the policy
+    policy: pull-push
+  stage: install
+  script: npm i
+
+Verify lint:
+  stage: verify
+  image: trion/ng-cli-karma
+  script: npm run lint
+  allow_failure: true
+
+Verify karma-test:
+  stage: verify
+  image: trion/ng-cli-karma
+  script: ng test --code-coverage --progress false --watch false
+  artifacts:
+    paths:
+      - coverage/
+  allow_failure: true
+
+Verify E2E-test:
+  stage: verify
+  image: trion/ng-cli-karma
+  script: npm run e2e
+  allow_failure: true
+
+Build release:
+  stage: build
+  script:
+    - npm run build-live
+  only:
+    - master
+  artifacts:
+    paths:
+      - dist/*
+  allow_failure: true
+
+Build dev:
+  stage: build
+  script:
+    - npm run build-dev
+  except:
+    - master
+  artifacts:
+    paths:
+      - dist/*
+  allow_failure: true
+
+Deploy release:
+  stage: deploy
+  cache: {}  # no cache required for deployment
+  script:
+    - rm /opt/gamebase/frontend/live/*
+    - cp dist/NG-Frontend/* /opt/gamebase/frontend/live/
+  only:
+    - master
+
+Deploy dev:
+  stage: deploy
+  cache: {}  # no cache required for deployment
+  script:
+    - rm /opt/gamebase/frontend/dev/*
+    - cp dist/NG-Frontend/* /opt/gamebase/frontend/dev/
+  except:
+    - master
