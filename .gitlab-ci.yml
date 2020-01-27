@@ -44,7 +44,7 @@ Verify E2E-test:
 Build release:
   stage: build
   script:
-    - npm run build-live
+    - npm run build-prod
   only:
     - master
   artifacts:
@@ -67,8 +67,8 @@ Build dev:
   stage: deploy
   cache: {}  # no cache required for deployment
   script:
-    - rm /opt/gamebase/frontend/live/*
-    - cp dist/NG-Frontend/* /opt/gamebase/frontend/live/
+    - rm /opt/services/dualis/website-angular-build/prod/*
+    - cp dist/dualis-rework/* /opt/services/dualis/website-angular-build/prod/
   only:
     - master
 
@@ -76,7 +76,7 @@ Build dev:
   stage: deploy
   cache: {}  # no cache required for deployment
   script:
-    - rm /opt/gamebase/frontend/dev/*
-    - cp dist/NG-Frontend/* /opt/gamebase/frontend/dev/
+    - rm /opt/services/dualis/website-angular-build/dev/*
+    - cp dist/dualis-rework/*  /opt/services/dualis/website-angular-build/dev/
   except:
     - master
