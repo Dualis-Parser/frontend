@@ -12,6 +12,8 @@ stages:
   - build
 #  - deploy
 
+image: trion/ng-cli-karma:latest
+
 Install dependencies:
   cache:
     # inherit all global cache settings
@@ -23,13 +25,11 @@ Install dependencies:
 
 Verify lint:
   stage: verify
-  image: trion/ng-cli-karma
   script: npm run lint
   allow_failure: true
 
 Verify karma-test:
   stage: verify
-  image: trion/ng-cli-karma
   script: ng test --code-coverage --progress false --watch false
   artifacts:
     paths:
@@ -38,7 +38,6 @@ Verify karma-test:
 
 Verify E2E-test:
   stage: verify
-  image: trion/ng-cli-karma
   script: npm run e2e
   allow_failure: true
 
