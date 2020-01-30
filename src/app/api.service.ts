@@ -15,6 +15,8 @@ interface Data {
   modules: Module[];
   name: string;
   semesters: string[];
+  semesterFilter: string[];
+  cache: number;
   username: string;
 }
 
@@ -46,7 +48,7 @@ export class ApiService {
     params = params.append('password', password);
 
     try {
-      const result = await this.httpClient.post<UserValidation>('https://dualis.gahr.dev/backend/login', params, {withCredentials: true}).toPromise();
+      const result = await this.httpClient.post<UserValidation>('http://localhost:9003/backend/login', params, {withCredentials: true}).toPromise();
 
       sessionStorage.loggedIn = result.data;
       return result.data;
@@ -56,8 +58,8 @@ export class ApiService {
     }
   }
 
-  async getUserModules() {
-    return await this.httpClient.get<UserDataResponse>('https://dualis.gahr.dev/backend/modules', {withCredentials: true}).toPromise();
+  async getUserModules(semesterFilter: string[]) {
+    return await this.httpClient.get<UserDataResponse>(`http://localhost:9003/backend/modules?semesterFilter=${JSON.stringify(semesterFilter)}`, {withCredentials: true}).toPromise();
   }
 
   async logout() {
