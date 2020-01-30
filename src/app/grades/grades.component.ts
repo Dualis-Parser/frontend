@@ -14,8 +14,8 @@ export class GradesComponent implements OnInit {
   data;
   visualModules;
   loading = true;
-  secondDiff;
-  cached = false;
+
+  counterInterval;
 
   semesters = new FormControl();
 
@@ -29,67 +29,46 @@ export class GradesComponent implements OnInit {
     await this.refresh();
   }
 
-  changeSelection() {
+  async changeSelection() {
     if (this.semesters.valid) {
-      this.visualModules = this.data.modules.filter(module => this.semesters.value.some(sem => module.semesters.includes(sem)));
+      await this.refresh();
     }
+  }
+
+  applyFilter(semesters) {
+    this.visualModules = this.data.modules.filter(module => semesters.some(sem => module.semesters.includes(sem)));
   }
 
   async refresh() {
     this.loading = true;
-    if (this.cached) {
-      this.cached = false;
-    }
-    const user = sessionStorage.getItem('username');
-    const password = sessionStorage.getItem('password');
-    if (!(await this.api.isUserAuthenticated(user, password))) {
+
+    if (!(await this.api.isUserAuthenticated('', ''))) {
       await this.router.navigate(['/login']);
       return;
     } else {
-      let isJson = false;
       try {
-        JSON.parse(sessionStorage.getItem('userData'));
-        isJson = true;
+        this.data = (await this.api.getUserModules(this.semesters.value)).data;
       } catch (e) {
-        isJson = false;
+        await this.api.logout();
+        await this.router.navigate(['/login']);
+        return;
       }
 
-      let reload = isJson;
-      if (isJson) {
-        const cacheTime = new Date(sessionStorage.getItem('cacheTime'));
-        this.secondDiff = Math.round((new Date().getTime() - cacheTime.getTime()) / 1000);
-        if (this.secondDiff < 120) {
-          reload = false;
+      // put failed modules at front
+      for (let i = 0; i < this.data.modules.length; i++) {
+        if (this.data.modules[i].passed === false && i !== 0) {
+          this.data.modules.unshift(this.data.modules[i]);
+          this.data.modules.splice(i + 1, 1);
         }
-      }
-
-      if (reload) {
-        try {
-          this.data = (await this.api.getUserModules()).data;
-        } catch (e) {
-          await this.api.logout();
-          await this.router.navigate(['/login']);
-          return;
-        }
-        // put failed modules at front
-        for (let i = 0; i < this.data.modules.length; i++) {
-          if (this.data.modules[i].passed === false && i !== 0) {
-            this.data.modules.unshift(this.data.modules[i]);
-            this.data.modules.splice(i + 1, 1);
-          }
-        }
-        sessionStorage.setItem('userData', JSON.stringify(this.data));
-        sessionStorage.setItem('cacheTime', new Date().toUTCString());
-      } else {
-        this.cached = true;
-        const cacheTime = new Date(sessionStorage.getItem('cacheTime'));
-        setInterval(() => this.secondDiff = Math.round((new Date().getTime() - cacheTime.getTime()) / 1000), 1000);
-
-        this.data = JSON.parse(sessionStorage.getItem('userData'));
       }
     }
-    this.semesters.setValue(this.data.semesters);
     this.visualModules = this.data.modules;
     this.loading = false;
+
+    this.semesters.setValue(this.data.semesterFilter);
+    this.applyFilter(this.data.semesterFilter);
+
+    clearInterval(this.counterInterval);
+    this.counterInterval = setInterval(() => this.data.cache += 1, 1000);
   }
 }
