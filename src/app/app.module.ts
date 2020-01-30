@@ -14,7 +14,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AngularMaterialModule} from './angular-material.module';
 import {MatButtonModule, MatFormFieldModule, MatSelectModule, MatSidenavModule, MatToolbarModule} from '@angular/material';
 import {LogoutComponent} from './logout/logout.component';
-import {HomeComponent} from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -23,8 +22,7 @@ import {HomeComponent} from './home/home.component';
     GradesComponent,
     ImprintComponent,
     LoginComponent,
-    LogoutComponent,
-    HomeComponent
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

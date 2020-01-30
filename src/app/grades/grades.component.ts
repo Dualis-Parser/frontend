@@ -49,6 +49,7 @@ export class GradesComponent implements OnInit {
       try {
         this.data = (await this.api.getUserModules(this.semesters.value)).data;
       } catch (e) {
+        // unauthenticated
         await this.api.logout();
         await this.router.navigate(['/login']);
         return;
@@ -65,8 +66,8 @@ export class GradesComponent implements OnInit {
     this.visualModules = this.data.modules;
     this.loading = false;
 
-    this.semesters.setValue(this.data.semesterFilter);
-    this.applyFilter(this.data.semesterFilter);
+    this.semesters.setValue(this.data.semesterFilter || this.data.semesters);
+    this.applyFilter(this.data.semesterFilter || this.data.semesters);
 
     clearInterval(this.counterInterval);
     this.counterInterval = setInterval(() => this.data.cache += 1, 1000);

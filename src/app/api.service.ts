@@ -53,19 +53,36 @@ export class ApiService {
       sessionStorage.loggedIn = result.data;
       return result.data;
     } catch (e) {
-      sessionStorage.loggedIn = false;
-      return false;
+      console.log(e);
+      if (e.status === 401) {
+        sessionStorage.loggedIn = false;
+        return false;
+      } else {
+        // implement server error visualization
+        sessionStorage.loggedIn = false;
+        return false;
+      }
     }
   }
 
   async getUserModules(semesterFilter: string[]) {
-    return await this.httpClient.get<UserDataResponse>(`https://dualis.gahr.dev/backend/modules?semesterFilter=${JSON.stringify(semesterFilter)}`, {withCredentials: true}).toPromise();
+    try {
+      return await this.httpClient.get<UserDataResponse>(`https://dualis.gahr.dev/backend/modules?semesterFilter=${JSON.stringify(semesterFilter)}`, {withCredentials: true}).toPromise();
+    } catch (e) {
+      if (e.status === 401) {
+        throw e;
+      } else {
+        // implement server error visualization
+        throw e;
+      }
+    }
   }
 
   async logout() {
     try {
       return await this.httpClient.get('https://dualis.gahr.dev/backend/logout', {withCredentials: true}).toPromise();
     } catch (e) {
+      // implement server error visualization
     }
   }
 }
