@@ -4,11 +4,11 @@
 
 <div *ngIf="!loading">
   <p class="h2 mb-5">Hello {{data.name}}
-    <a *ngIf="cached && secondDiff < 120" class="h4">
-      <span class="badge badge-primary">Cached results, <b>{{ 120 - secondDiff }}</b> seconds left</span>
+    <a *ngIf="data.cache < 120" class="h4">
+      <span class="badge badge-primary">Cached results, <b>{{ 120 - data.cache }}</b> seconds left</span>
     </a>
-    <a *ngIf="cached && secondDiff >= 120" class="h4">
-      <span class="badge badge-primary" >Ready to update</span>
+    <a *ngIf="data.cache >= 120" class="h4">
+      <span class="badge badge-primary">Ready to update</span>
       <button mat-icon-button color="primary" (click)="refresh()">
         <mat-icon>refresh</mat-icon>
       </button>
