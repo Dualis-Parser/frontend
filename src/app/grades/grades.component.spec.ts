@@ -1,6 +1,13 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { GradesComponent } from './grades.component';
+import {GradesComponent} from './grades.component';
+import {NgxLoadingModule} from 'ngx-loading';
+import {AngularMaterialModule} from '../angular-material.module';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('GradesComponent', () => {
   let component: GradesComponent;
@@ -8,9 +15,13 @@ describe('GradesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GradesComponent ]
+      declarations: [GradesComponent],
+      imports: [
+        NgxLoadingModule, AngularMaterialModule, MatSelectModule, FormsModule, MatFormFieldModule,
+        ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
