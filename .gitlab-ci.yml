@@ -1,0 +1,91 @@
+# Keep mode_modules between jobs (results in lower build times)
+cache: &global_cache
+  untracked: true
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+  policy: pull
+
+stages:
+  - install
+  - verify
+  - build
+  - deploy
+
+image: trion/ng-cli-karma:latest
+
+Install dependencies:
+  cache:
+    # inherit all global cache settings
+    <<: *global_cache
+    # override the policy
+    policy: pull-push
+  stage: install
+  script: npm i
+  tags:
+    - dualis
+    - docker
+
+Verify lint:
+  stage: verify
+  script: npm run lint
+  tags:
+    - dualis
+    - docker
+
+Verify karma-test:
+  stage: verify
+  script: ng test --code-coverage --progress false --watch false
+  artifacts:
+    paths:
+      - coverage/
+  tags:
+    - dualis
+    - docker
+
+Build release:
+  stage: build
+  script:
+    - npm run build-prod
+  only:
+    - master
+  artifacts:
+    paths:
+      - dist/*
+  tags:
+    - dualis
+    - docker
+
+Build dev:
+  stage: build
+  script:
+    - npm run build-dev
+  except:
+    - master
+  artifacts:
+    paths:
+      - dist/*
+  tags:
+    - dualis
+    - docker
+
+Deploy release:
+  stage: deploy
+  cache: {}  # no cache required for deployment
+  script:
+    - rm /opt/services/dualis/website-angular-build/prod/* || true
+    - cp dist/dualis-rework/* /opt/services/dualis/website-angular-build/prod/
+  only:
+    - master
+
+Deploy dev:
+  stage: deploy
+  cache: {}  # no cache required for deployment
+  script:
+    - rm /opt/services/dualis/website-angular-build/dev/* || true
+    - cp dist/dualis-rework/*  /opt/services/dualis/website-angular-build/dev/
+  except:
+    - master
+  tags:
+    - dualis
+    - shell

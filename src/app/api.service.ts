@@ -48,7 +48,9 @@ export class ApiService {
     params = params.append('password', password);
 
     try {
-      const result = await this.httpClient.post<UserValidation>('https://dualis.gahr.dev/backend/login', params, {withCredentials: true}).toPromise();
+      const result = await this.httpClient.post<UserValidation>(
+        'https://dualis.gahr.dev/backend/login', params, {withCredentials: true}
+      ).toPromise();
 
       sessionStorage.loggedIn = result.data;
       return result.data;
