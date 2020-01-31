@@ -10,7 +10,7 @@ stages:
   - install
   - verify
   - build
-#  - deploy
+  - deploy
 
 image: trion/ng-cli-karma:latest
 
@@ -54,7 +54,7 @@ Build dev:
     paths:
       - dist/*
 
-.Deploy release:
+Deploy release:
   stage: deploy
   cache: {}  # no cache required for deployment
   script:
@@ -63,7 +63,7 @@ Build dev:
   only:
     - master
 
-.Deploy dev:
+Deploy dev:
   stage: deploy
   cache: {}  # no cache required for deployment
   script:
@@ -71,3 +71,6 @@ Build dev:
     - cp dist/dualis-rework/*  /opt/services/dualis/website-angular-build/dev/
   except:
     - master
+  tags:
+    - dualis
+    - shell
