@@ -77,6 +77,9 @@ Deploy release:
     - cp dist/dualis-rework/* /opt/services/dualis/website-angular-build/prod/
   only:
     - master
+  tags:
+    - dualis
+    - shell
 
 Deploy dev:
   stage: deploy
