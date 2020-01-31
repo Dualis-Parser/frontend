@@ -26,7 +26,6 @@ Install dependencies:
 Verify lint:
   stage: verify
   script: npm run lint
-  allow_failure: true
 
 Verify karma-test:
   stage: verify
@@ -34,12 +33,6 @@ Verify karma-test:
   artifacts:
     paths:
       - coverage/
-  allow_failure: true
-
-Verify E2E-test:
-  stage: verify
-  script: npm run e2e
-  allow_failure: true
 
 Build release:
   stage: build
@@ -50,7 +43,6 @@ Build release:
   artifacts:
     paths:
       - dist/*
-  allow_failure: true
 
 Build dev:
   stage: build
@@ -61,7 +53,6 @@ Build dev:
   artifacts:
     paths:
       - dist/*
-  allow_failure: true
 
 .Deploy release:
   stage: deploy

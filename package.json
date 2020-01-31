@@ -7,8 +7,7 @@
     "build-prod": "ng build --prod --build-optimizer=true --aot=true --extract-css=true --named-chunks=false --vendor-chunk=true --base-href https://dualis.gahr.dev",
     "build-dev": "ng build --build-optimizer=true --aot=true --extract-css=true --named-chunks=false --vendor-chunk=true --base-href https://dev.dualis.gahr.dev",
     "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
