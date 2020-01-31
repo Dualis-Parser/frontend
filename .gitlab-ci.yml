@@ -22,10 +22,16 @@ Install dependencies:
     policy: pull-push
   stage: install
   script: npm i
+  tags:
+    - dualis
+    - docker
 
 Verify lint:
   stage: verify
   script: npm run lint
+  tags:
+    - dualis
+    - docker
 
 Verify karma-test:
   stage: verify
@@ -33,6 +39,9 @@ Verify karma-test:
   artifacts:
     paths:
       - coverage/
+  tags:
+    - dualis
+    - docker
 
 Build release:
   stage: build
@@ -43,6 +52,9 @@ Build release:
   artifacts:
     paths:
       - dist/*
+  tags:
+    - dualis
+    - docker
 
 Build dev:
   stage: build
@@ -53,12 +65,15 @@ Build dev:
   artifacts:
     paths:
       - dist/*
+  tags:
+    - dualis
+    - docker
 
 Deploy release:
   stage: deploy
   cache: {}  # no cache required for deployment
   script:
-    - rm /opt/services/dualis/website-angular-build/prod/*
+    - rm /opt/services/dualis/website-angular-build/prod/* || true
     - cp dist/dualis-rework/* /opt/services/dualis/website-angular-build/prod/
   only:
     - master
@@ -67,7 +82,7 @@ Deploy dev:
   stage: deploy
   cache: {}  # no cache required for deployment
   script:
-    - rm /opt/services/dualis/website-angular-build/dev/*
+    - rm /opt/services/dualis/website-angular-build/dev/* || true
     - cp dist/dualis-rework/*  /opt/services/dualis/website-angular-build/dev/
   except:
     - master
