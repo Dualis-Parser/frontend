@@ -9,7 +9,7 @@ import {version} from '../../../package.json';
 export class FooterComponent implements OnInit {
 
   public version: string = version;
-  private year: number = new Date().getFullYear();
+  public year: number = new Date().getFullYear();
 
   constructor() { }
 
