@@ -1,5 +1,6 @@
 # DualisRework
-
+[![coverage report](https://gitlab.tandashi.de/DHBW/dualis_parser/website-angular/badges/master/coverage.svg)](https://gitlab.tandashi.de/DHBW/dualis_parser/website-angular/commits/master)
+[![pipeline status](https://gitlab.tandashi.de/DHBW/dualis_parser/website-angular/badges/master/pipeline.svg)](https://gitlab.tandashi.de/DHBW/dualis_parser/website-angular/commits/master)
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.7.
 
 ## Development server

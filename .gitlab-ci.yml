@@ -43,6 +43,21 @@ Verify karma-test:
     - dualis
     - docker
 
+pages:
+  stage: build
+  image: iankoulski/tree
+  script:
+    - mkdir -p public/$CI_BUILD_REF_NAME
+    - cp -a coverage/* public/$CI_BUILD_REF_NAME
+    - cd public
+    - tree -H '.' -L 1 --noreport --charset utf-8 > index.html
+  artifacts:
+    paths:
+      - public
+  tags:
+    - dualis
+    - docker
+
 Build release:
   stage: build
   script:
