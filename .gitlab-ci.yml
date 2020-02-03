@@ -45,8 +45,10 @@ Verify karma-test:
 
 pages:
   stage: build
+  cache: {}  # no cache required
   image: iankoulski/tree
   script:
+    - ls
     - mkdir -p public/$CI_BUILD_REF_NAME
     - cp -a coverage/* public/$CI_BUILD_REF_NAME
     - cd public
