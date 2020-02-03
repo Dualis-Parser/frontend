@@ -42,26 +42,29 @@ export class GradesComponent implements OnInit {
   async refresh() {
     this.loading = true;
 
-    if (!(await this.api.isUserAuthenticated('', ''))) {
-      await this.router.navigate(['/login']);
-      return;
-    } else {
-      try {
+    try {
+      if (!(await this.api.isUserAuthenticated('', ''))) {
+        await this.router.navigate(['/login']);
+        return;
+      } else {
         this.data = (await this.api.getUserModules(this.semesters.value)).data;
-      } catch (e) {
+
+        // put failed modules at front
+        for (let i = 0; i < this.data.modules.length; i++) {
+          if (this.data.modules[i].passed === false && i !== 0) {
+            this.data.modules.unshift(this.data.modules[i]);
+            this.data.modules.splice(i + 1, 1);
+          }
+        }
+      }
+    } catch (e) {
+      if (e.code === 401) {
         // unauthenticated
         await this.api.logout();
         await this.router.navigate(['/login']);
         return;
       }
-
-      // put failed modules at front
-      for (let i = 0; i < this.data.modules.length; i++) {
-        if (this.data.modules[i].passed === false && i !== 0) {
-          this.data.modules.unshift(this.data.modules[i]);
-          this.data.modules.splice(i + 1, 1);
-        }
-      }
+      await this.router.navigate(['/error']);
     }
     this.visualModules = this.data.modules;
     this.loading = false;

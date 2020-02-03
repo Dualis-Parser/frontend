@@ -5,6 +5,7 @@ import {GradesComponent} from './grades/grades.component';
 import {ImprintComponent} from './imprint/imprint.component';
 import {LoginComponent} from './login/login.component';
 import {LogoutComponent} from './logout/logout.component';
+import {InternalErrorComponent} from './internal-error/internal-error.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'logout', component: LogoutComponent},
   {path: 'grades', component: GradesComponent},
   {path: 'imprint', component: ImprintComponent},
+  {path: 'error', component: InternalErrorComponent},
   {path: '**', redirectTo: 'login'}
 ];
 

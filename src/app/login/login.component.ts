@@ -30,10 +30,14 @@ export class LoginComponent implements OnInit {
 
   async ngOnInit() {
     this.loading = true;
-    if (!(await this.api.isUserAuthenticated('', ''))) {
 
-    } else {
-      await this.router.navigate(['/grades']);
+    try {
+      if (await this.api.isUserAuthenticated('', '')) {
+        await this.router.navigate(['/grades']);
+      }
+    } catch (e) {
+      await this.router.navigate(['/error']);
+      return;
     }
     this.loading = false;
   }
@@ -45,10 +49,15 @@ export class LoginComponent implements OnInit {
       username += '@dh-karlsruhe.de';
     }
     const password = this.angForm.controls.password.value;
-    if (!(await this.api.isUserAuthenticated(username, password))) {
-      this.error = 'Invalid username or password. Try again.';
-    } else {
-      await this.router.navigate(['/grades']);
+    try {
+      if (!(await this.api.isUserAuthenticated(username, password))) {
+        this.error = 'Invalid username or password. Try again.';
+      } else {
+        await this.router.navigate(['/grades']);
+      }
+    } catch (e) {
+      await this.router.navigate(['/error']);
+      return;
     }
     this.loading = false;
   }
