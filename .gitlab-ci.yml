@@ -43,23 +43,6 @@ Verify karma-test:
     - dualis
     - docker
 
-pages:
-  stage: build
-  cache: {}  # no cache required
-  image: iankoulski/tree
-  script:
-    - ls
-    - mkdir -p public/$CI_BUILD_REF_NAME
-    - cp -a coverage/* public/$CI_BUILD_REF_NAME
-    - cd public
-    - tree -H '.' -L 1 --noreport --charset utf-8 > index.html
-  artifacts:
-    paths:
-      - public
-  tags:
-    - dualis
-    - docker
-
 Build release:
   stage: build
   script:
@@ -109,3 +92,17 @@ Deploy dev:
   tags:
     - dualis
     - shell
+
+pages:
+  stage: deploy
+  cache: {}  # no cache required
+  image: iankoulski/tree
+  script:
+    - ls
+    - mkdir -p public/$CI_BUILD_REF_NAME
+    - cp -a coverage/* public/$CI_BUILD_REF_NAME
+    - cd public
+    - tree -H '.' -L 1 --noreport --charset utf-8 > index.html
+  artifacts:
+    paths:
+      - public
