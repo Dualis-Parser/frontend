@@ -96,9 +96,11 @@ Deploy dev:
 pages:
   stage: deploy
   cache: {}  # no cache required
-  image: iankoulski/tree
+  dependencies:
+    - Verify karma-test
   script:
-    - ls
+    - apt update
+    - apt install tree -y
     - mkdir -p public/$CI_BUILD_REF_NAME
     - cp -a coverage/* public/$CI_BUILD_REF_NAME
     - cd public
