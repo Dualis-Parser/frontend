@@ -5,6 +5,7 @@ import {NavbarComponent} from './navbar/navbar.component';
 import {AngularMaterialModule} from './angular-material.module';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {FooterComponent} from './footer/footer.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -14,7 +15,8 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent,
-        NavbarComponent
+        NavbarComponent,
+        FooterComponent
       ],
     }).compileComponents();
   }));

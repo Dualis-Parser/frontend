@@ -2,11 +2,12 @@
 @import "~bootswatch/dist/darkly/bootstrap.min.css";
 @import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
 
-body {
-  padding-top: 64px;
+html {
+  position: relative;
+  min-height: 100%;
 }
 
-.mat-toolbar .navbar-nav {
-  display: inline-flex;
-  flex-direction: row;
+body {
+  padding-top: 64px;
+  margin-bottom: 60px;
 }

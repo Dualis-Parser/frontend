@@ -2,7 +2,7 @@
              [config]="{animationType: ngxLoadingAnimationTypes.rectangleBounce, primaryColour: '#fff', secondaryColour: '#ccc', backdropBorderRadius: '3px'}"
              [template]="loadingTemplate"></ngx-loading>
 
-<div *ngIf="!loading">
+<div *ngIf="!loading" id="page-container">
   <p class="h2 mb-5">Hello {{data.name}}
     <a *ngIf="data.cache < 120" class="h4">
       <span class="badge badge-primary">Cached results, <b>{{ 120 - data.cache }}</b> seconds left</span>
