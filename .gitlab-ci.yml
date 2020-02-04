@@ -103,6 +103,7 @@ pages:
     <<: *global_cache
     paths:
       - public
+    policy: pull-push
   dependencies:
     - Verify karma-test
   script:
