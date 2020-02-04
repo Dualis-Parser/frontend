@@ -118,4 +118,6 @@ pages:
     name: "$CI_PIPELINE_ID"
     paths:
       - public
+  tags:
+    - dualis
   when: always
