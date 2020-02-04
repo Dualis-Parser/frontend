@@ -1,6 +1,5 @@
 # Keep mode_modules between jobs (results in lower build times)
 cache: &global_cache
-  untracked: true
   key: ${CI_COMMIT_REF_SLUG}
   paths:
     - node_modules/
@@ -98,17 +97,27 @@ Deploy dev:
 
 pages:
   stage: deploy
-  cache: {}  # no cache required
+  cache:
+    # inherit all global cache settings
+    <<: *global_cache
+    key: pages
+    paths:
+      - public
+    policy: pull-push
   dependencies:
     - Verify karma-test
   script:
     - apt update
     - apt install tree -y
     - mv coverage/dualis-rework/* coverage/
-    - mkdir -p public/$CI_BUILD_REF_NAME
-    - cp -a coverage/* public/$CI_BUILD_REF_NAME
+    - mkdir -p public/$CI_COMMIT_REF_SLUG
+    - cp -a coverage/* public/$CI_COMMIT_REF_SLUG
     - cd public
     - tree -H '.' -L 1 --noreport --charset utf-8 > index.html
   artifacts:
+    name: "$CI_PIPELINE_ID"
     paths:
       - public
+  tags:
+    - dualis
+  when: always
