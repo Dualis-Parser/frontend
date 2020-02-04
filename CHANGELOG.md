@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.5](https://gitlab.tandashi.de///compare/v0.2.3...v0.2.5) (2020-02-04)
+
+
+### Features
+
+* **excel export:** Add excel export function of modules ([ce3bdbf](https://gitlab.tandashi.de///commit/ce3bdbfcd4deddde6284e66aa678fecfd9678516))
+
 ### [0.2.4](https://gitlab.tandashi.de///compare/v0.2.3...v0.2.4) (2020-02-04)
 
 ### [0.2.3](https://gitlab.tandashi.de///compare/v0.2.2...v0.2.3) (2020-02-03)
