@@ -12,7 +12,6 @@
       <button mat-icon-button color="primary" (click)="refresh()">
         <mat-icon>refresh</mat-icon>
       </button>
-
     </a>
   </p>
 
@@ -22,6 +21,10 @@
       <mat-option *ngFor="let semester of data.semesters" [value]="semester">{{semester}}</mat-option>
     </mat-select>
   </mat-form-field>
+
+  <button mat-icon-button color="accent" class="float-right" title="Export all to xlsx (#nofilter)" (click)="exportModules()">
+    <mat-icon>cloud_download</mat-icon>
+  </button>
 
 
   <table class="table">

@@ -1,8 +1,10 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, Inject, OnInit, TemplateRef} from '@angular/core';
 import {ApiService} from '../api.service';
 import {Router} from '@angular/router';
 import {ngxLoadingAnimationTypes} from 'ngx-loading';
 import {FormControl} from '@angular/forms';
+import {DOCUMENT} from '@angular/common';
+import {MatSnackBar} from '@angular/material';
 
 
 @Component({
@@ -22,11 +24,17 @@ export class GradesComponent implements OnInit {
   public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
   public loadingTemplate: TemplateRef<any>;
 
-  constructor(private api: ApiService, private router: Router) {
+  constructor(private api: ApiService, private router: Router, @Inject(DOCUMENT) public document: Document, private snackBar: MatSnackBar) {
   }
 
   async ngOnInit() {
     await this.refresh();
+  }
+
+  openSnackbar() {
+    this.snackBar.open('Exporting all grades', undefined, {
+      duration: 5000
+    });
   }
 
   async changeSelection() {
@@ -64,6 +72,7 @@ export class GradesComponent implements OnInit {
         await this.router.navigate(['/login']);
         return;
       }
+      console.error(e);
       await this.router.navigate(['/error']);
     }
     this.visualModules = this.data.modules;
@@ -74,5 +83,13 @@ export class GradesComponent implements OnInit {
 
     clearInterval(this.counterInterval);
     this.counterInterval = setInterval(() => this.data.cache += 1, 1000);
+  }
+
+  exportModules() {
+    const link = document.createElement('a');
+    link.download = 'modules.xlsx';
+    link.href = '/backend/modules/export';
+    link.click();
+    this.openSnackbar();
   }
 }
