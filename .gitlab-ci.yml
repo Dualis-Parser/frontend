@@ -49,6 +49,7 @@ Build release:
     - npm run build-prod
   only:
     - master
+    - tags
   artifacts:
     paths:
       - dist/*
@@ -62,6 +63,7 @@ Build dev:
     - npm run build-dev
   except:
     - master
+    - tags
   artifacts:
     paths:
       - dist/*
@@ -76,7 +78,7 @@ Deploy release:
     - rm /opt/services/dualis/website-angular-build/prod/* || true
     - cp dist/dualis-rework/* /opt/services/dualis/website-angular-build/prod/
   only:
-    - master
+    - tags # only deploy a real release
   tags:
     - dualis
     - shell
@@ -89,6 +91,7 @@ Deploy dev:
     - cp dist/dualis-rework/*  /opt/services/dualis/website-angular-build/dev/
   except:
     - master
+    - tags
   tags:
     - dualis
     - shell
