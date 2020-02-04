@@ -98,17 +98,23 @@ Deploy dev:
 
 pages:
   stage: deploy
-  cache: {}  # no cache required
+  cache:
+    # inherit all global cache settings
+    <<: *global_cache
+    paths:
+      - public
   dependencies:
     - Verify karma-test
   script:
     - apt update
     - apt install tree -y
     - mv coverage/dualis-rework/* coverage/
-    - mkdir -p public/$CI_BUILD_REF_NAME
-    - cp -a coverage/* public/$CI_BUILD_REF_NAME
+    - mkdir -p public/$CI_PIPELINE_ID
+    - cp -a coverage/* public/$CI_PIPELINE_ID
     - cd public
     - tree -H '.' -L 1 --noreport --charset utf-8 > index.html
   artifacts:
+    name: "$CI_PIPELINE_ID"
     paths:
       - public
+  when: always
