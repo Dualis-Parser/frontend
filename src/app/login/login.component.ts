@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
         await this.router.navigate(['/grades']);
       }
     } catch (e) {
+      console.error(e);
       await this.router.navigate(['/error']);
       return;
     }
@@ -56,6 +57,7 @@ export class LoginComponent implements OnInit {
         await this.router.navigate(['/grades']);
       }
     } catch (e) {
+      console.error(e);
       await this.router.navigate(['/error']);
       return;
     }

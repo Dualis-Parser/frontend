@@ -12,7 +12,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxLoadingModule} from 'ngx-loading';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AngularMaterialModule} from './angular-material.module';
-import {MatButtonModule, MatFormFieldModule, MatSelectModule, MatSidenavModule, MatToolbarModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatFormFieldModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSnackBarModule,
+  MatToolbarModule
+} from '@angular/material';
 import {LogoutComponent} from './logout/logout.component';
 import {InternalErrorComponent} from './internal-error/internal-error.component';
 import {FooterComponent} from './footer/footer.component';
@@ -42,6 +49,7 @@ import {FooterComponent} from './footer/footer.component';
     MatSelectModule,
     MatToolbarModule,
     MatSidenavModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],
