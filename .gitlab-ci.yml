@@ -1,6 +1,5 @@
 # Keep mode_modules between jobs (results in lower build times)
 cache: &global_cache
-  untracked: true
   key: ${CI_COMMIT_REF_SLUG}
   paths:
     - node_modules/
@@ -101,6 +100,7 @@ pages:
   cache:
     # inherit all global cache settings
     <<: *global_cache
+    key: pages
     paths:
       - public
     policy: pull-push
