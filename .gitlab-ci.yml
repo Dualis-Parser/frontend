@@ -107,13 +107,12 @@ pages:
   dependencies:
     - Verify karma-test
   script:
-    - apt update
-    - apt install tree -y
     - mv coverage/dualis-rework/* coverage/
     - mkdir -p public/$CI_COMMIT_REF_SLUG
     - cp -a coverage/* public/$CI_COMMIT_REF_SLUG
     - cd public
-    - tree -H '.' -L 1 --noreport --charset utf-8 > index.html
+    - sh ../gitlab-pages/generate-dir-index.sh
+    - cp ../gitlab-pages/styles.css .
   artifacts:
     name: "$CI_PIPELINE_ID"
     paths:
