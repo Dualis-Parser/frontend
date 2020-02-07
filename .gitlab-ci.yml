@@ -119,4 +119,3 @@ pages:
       - public
   tags:
     - dualis
-  when: always
