@@ -13,7 +13,7 @@ import {NgxLoadingModule} from 'ngx-loading';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AngularMaterialModule} from './angular-material.module';
 import {
-  MatButtonModule,
+  MatButtonModule, MatCheckboxModule,
   MatFormFieldModule,
   MatSelectModule,
   MatSidenavModule,
@@ -49,7 +49,8 @@ import {FooterComponent} from './footer/footer.component';
     MatSelectModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent],
