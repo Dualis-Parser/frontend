@@ -11,3 +11,8 @@ body {
   padding-top: 64px;
   margin-bottom: 60px;
 }
+
+mat-optgroup > label {
+  margin-left: 15px !important;
+  cursor: pointer !important;
+}
