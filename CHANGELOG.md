@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.6](https://gitlab.tandashi.de///compare/v0.2.5...v0.2.6) (2020-02-05)
+
 ### [0.2.5](https://gitlab.tandashi.de///compare/v0.2.3...v0.2.5) (2020-02-04)
 
 
