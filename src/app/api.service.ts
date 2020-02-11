@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
+import {environment} from '../environments/environment';
 
 interface UserValidation {
   data: boolean;
@@ -39,6 +40,8 @@ interface Grade {
   providedIn: 'root'
 })
 export class ApiService {
+  backendURL = environment.backendURL;
+
   constructor(private httpClient: HttpClient) {
   }
 
@@ -49,7 +52,7 @@ export class ApiService {
 
     try {
       const result = await this.httpClient.post<UserValidation>(
-        'https://dualis.gahr.dev/backend/login', params, {withCredentials: true}
+        this.backendURL + '/login', params, {withCredentials: true}
       ).toPromise();
 
       sessionStorage.loggedIn = result.data;
@@ -64,11 +67,15 @@ export class ApiService {
     }
   }
 
-  async getUserModules(semesterFilter: string[]) {
-    return await this.httpClient.get<UserDataResponse>(`https://dualis.gahr.dev/backend/modules?semesterFilter=${JSON.stringify(semesterFilter)}`, {withCredentials: true}).toPromise();
+  async getUserModules() {
+    return await this.httpClient.get<UserDataResponse>(this.backendURL + '/modules', {withCredentials: true}).toPromise();
+  }
+
+  async setSemesterFilter(semesterFilter: string[]) {
+    return await this.httpClient.post(this.backendURL + '/modules/filter', semesterFilter, {withCredentials: true}).toPromise();
   }
 
   async logout() {
-    return await this.httpClient.get('https://dualis.gahr.dev/backend/logout', {withCredentials: true}).toPromise();
+    return await this.httpClient.get(this.backendURL + '/logout', {withCredentials: true}).toPromise();
   }
 }
