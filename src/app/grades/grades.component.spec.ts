@@ -8,7 +8,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
-import {MatSnackBarModule} from '@angular/material';
+import {MatCheckboxModule, MatSnackBarModule} from '@angular/material';
 
 describe('GradesComponent', () => {
   let component: GradesComponent;
@@ -19,7 +19,7 @@ describe('GradesComponent', () => {
       declarations: [GradesComponent],
       imports: [
         NgxLoadingModule, AngularMaterialModule, MatSelectModule, MatSnackBarModule, FormsModule, MatFormFieldModule,
-        ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule
+        ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule, MatCheckboxModule
       ]
     })
       .compileComponents();

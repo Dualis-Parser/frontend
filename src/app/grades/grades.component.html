@@ -18,7 +18,11 @@
   <mat-form-field>
     <mat-label>Semesters</mat-label>
     <mat-select [formControl]="semesters" (selectionChange)="changeSelection()" multiple required>
-      <mat-option *ngFor="let semester of data.semesters" [value]="semester">{{semester}}</mat-option>
+      <mat-optgroup *ngFor="let semesterYear of data.semesters; let i = index"
+                    [label]="'Year ' + (data.semesters.length - i)">
+        <mat-checkbox (change)="groupCheckChanged(i, $event)" [(ngModel)]="groupCheck[i]" [(indeterminate)]="groupIndeterminate[i]" class="opt-group-check"></mat-checkbox>
+        <mat-option *ngFor="let semester of semesterYear" [value]="semester">{{semester}}</mat-option>
+      </mat-optgroup>
     </mat-select>
   </mat-form-field>
 

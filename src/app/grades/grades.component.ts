@@ -5,6 +5,7 @@ import {ngxLoadingAnimationTypes} from 'ngx-loading';
 import {FormControl} from '@angular/forms';
 import {DOCUMENT} from '@angular/common';
 import {MatSnackBar} from '@angular/material';
+import {environment} from '../../environments/environment';
 
 
 @Component({
@@ -20,6 +21,8 @@ export class GradesComponent implements OnInit {
   counterInterval;
 
   semesters = new FormControl();
+  groupCheck: boolean[];
+  groupIndeterminate: boolean[];
 
   public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
   public loadingTemplate: TemplateRef<any>;
@@ -37,9 +40,36 @@ export class GradesComponent implements OnInit {
     });
   }
 
-  async changeSelection() {
+  groupCheckChanged(changeIndex: number, event?) {
+    let newSelection = this.semesters.value;
+    if (event.checked) {
+      newSelection = newSelection
+        .concat(this.data.semesters[changeIndex])
+        .filter((a, b, array) => array.indexOf(a) === b);
+    } else {
+      newSelection = newSelection.filter(semester => !this.data.semesters[changeIndex].includes(semester));
+    }
+    this.semesters.setValue(newSelection);
+    this.changeSelection();
+  }
+
+  changeSelection() {
     if (this.semesters.valid) {
-      await this.refresh();
+      this.api.setSemesterFilter(this.semesters.value)
+        .catch(err => console.warn('Error while updating filter', err));
+
+      this.data.semesters.forEach((yearSemesters, i) => {
+        if (yearSemesters.every(semester => this.semesters.value.includes(semester))) {
+          this.groupCheck[i] = true;
+          this.groupIndeterminate[i] = false;
+        } else if (yearSemesters.some(semester => this.semesters.value.includes(semester))) {
+          this.groupIndeterminate[i] = true;
+        } else {
+          this.groupCheck[i] = false;
+          this.groupIndeterminate[i] = false;
+        }
+      });
+      this.applyFilter(this.semesters.value);
     }
   }
 
@@ -55,7 +85,7 @@ export class GradesComponent implements OnInit {
         await this.router.navigate(['/login']);
         return;
       } else {
-        this.data = (await this.api.getUserModules(this.semesters.value)).data;
+        this.data = (await this.api.getUserModules()).data;
 
         // put failed modules at front
         for (let i = 0; i < this.data.modules.length; i++) {
@@ -78,8 +108,11 @@ export class GradesComponent implements OnInit {
     this.visualModules = this.data.modules;
     this.loading = false;
 
-    this.semesters.setValue(this.data.semesterFilter || this.data.semesters);
-    this.applyFilter(this.data.semesterFilter || this.data.semesters);
+    this.groupIndeterminate = new Array(this.data.semesters.length);
+    this.groupCheck = new Array(this.data.semesters.length);
+
+    this.semesters.setValue(this.data.semesterFilter || this.data.semesters[0]);
+    this.changeSelection();
 
     clearInterval(this.counterInterval);
     this.counterInterval = setInterval(() => this.data.cache += 1, 1000);
@@ -88,7 +121,7 @@ export class GradesComponent implements OnInit {
   exportModules() {
     const link = document.createElement('a');
     link.download = 'modules.xlsx';
-    link.href = '/backend/modules/export';
+    link.href = environment.backendURL + '/modules/export';
     link.click();
     this.openSnackbar();
   }
