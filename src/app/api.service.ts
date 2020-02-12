@@ -51,20 +51,28 @@ export class ApiService {
     params = params.append('password', password);
 
     try {
-      const result = await this.httpClient.post<UserValidation>(
-        this.backendURL + '/login', params, {withCredentials: true}
-      ).toPromise();
+      const result = await this.userLogin(params).toPromise();
 
       sessionStorage.loggedIn = result.data;
       return result.data;
     } catch (e) {
-      if (e.status === 401) {
-        sessionStorage.loggedIn = false;
-        return false;
-      } else {
-        throw e;
-      }
+      return this.handleLoginError(e);
     }
+  }
+
+  handleLoginError(error) {
+    if (error.status === 401) {
+      sessionStorage.loggedIn = false;
+      return false;
+    } else {
+      throw error;
+    }
+  }
+
+  userLogin(userData: object) {
+    return this.httpClient.post<UserValidation>(
+      this.backendURL + '/login', userData, {withCredentials: true}
+    );
   }
 
   async getUserModules() {
