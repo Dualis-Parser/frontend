@@ -1,8 +1,9 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import {InternalErrorComponent} from './internal-error.component';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
+import {environment} from '../../environments/environment';
 
 describe('InternalErrorComponent', () => {
   let component: InternalErrorComponent;
@@ -25,4 +26,14 @@ describe('InternalErrorComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should stay on errorpage', fakeAsync(() => {
+    spyOn(console, 'error');
+
+    const http = TestBed.get(HttpTestingController);
+    http.expectOne(environment.backendURL + '/login').flush({}, {status: 401, statusText: 'Unauthorized'});
+    tick();
+
+    expect(console.error).toHaveBeenCalled();
+  }));
 });
