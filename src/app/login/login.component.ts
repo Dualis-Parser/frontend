@@ -28,9 +28,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.loading = true;
+    this.validateLogin().then(() => this.loading = false);
+  }
 
+  async validateLogin() {
     try {
       if (await this.api.isUserAuthenticated('', '')) {
         await this.router.navigate(['/grades']);
@@ -38,9 +41,7 @@ export class LoginComponent implements OnInit {
     } catch (e) {
       console.error(e);
       await this.router.navigate(['/error']);
-      return;
     }
-    this.loading = false;
   }
 
   async onSubmit() {
