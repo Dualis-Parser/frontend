@@ -3,6 +3,7 @@ import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/t
 import {InternalErrorComponent} from './internal-error.component';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
+import {environment} from '../../environments/environment';
 
 describe('InternalErrorComponent', () => {
   let component: InternalErrorComponent;
@@ -30,7 +31,7 @@ describe('InternalErrorComponent', () => {
     spyOn(console, 'error');
 
     const http = TestBed.get(HttpTestingController);
-    http.expectOne('https://dualis.gahr.dev/backend/login').flush({}, {status: 401, statusText: 'Unauthorized'});
+    http.expectOne(environment.backendURL + '/login').flush({}, {status: 401, statusText: 'Unauthorized'});
     tick();
 
     expect(console.error).toHaveBeenCalled();
