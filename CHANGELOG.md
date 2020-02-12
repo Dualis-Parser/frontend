@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.8](https://gitlab.tandashi.de///compare/v0.2.6...v0.2.8) (2020-02-11)
+
+
+### Features
+
+* **year-filter:** Semesterfilter now has the year as category ([694539b](https://gitlab.tandashi.de///commit/694539b2c5aec9e59be7400373817c40015b41f6))
+
+### [0.2.7](https://gitlab.tandashi.de///compare/v0.2.6...v0.2.7) (2020-02-11)
+
+
+### Features
+
+* **year-filter:** Semesterfilter now has the year as category ([694539b](https://gitlab.tandashi.de///commit/694539b2c5aec9e59be7400373817c40015b41f6))
+* **excel-export-year:** Excel export now contains year ([694539b](https://gitlab.tandashi.de///commit/694539b2c5aec9e59be7400373817c40015b41f6))
+* **excel-export-structure:** Excel export now has a blank line categorizing each year ([694539b](https://gitlab.tandashi.de///commit/694539b2c5aec9e59be7400373817c40015b41f6))
+* **filter-change:** Grade data doesn't reload on filter change anymore ([694539b](https://gitlab.tandashi.de///commit/694539b2c5aec9e59be7400373817c40015b41f6))
+
 ### [0.2.6](https://gitlab.tandashi.de///compare/v0.2.5...v0.2.6) (2020-02-05)
 
 ### [0.2.5](https://gitlab.tandashi.de///compare/v0.2.3...v0.2.5) (2020-02-04)
