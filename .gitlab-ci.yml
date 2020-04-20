@@ -109,8 +109,9 @@ Deploy release:
   stage: deploy
   cache: {}  # no cache required for deployment
   script:
-    - rm /opt/services/dualis/website-angular-build/prod/* || true
-    - cp dist/dualis-rework/* /opt/services/dualis/website-angular-build/prod/
+    - cd /opt/services/dualis
+    - docker-compose pull $COMPOSE_SERVICE_NAME
+    - docker-compose restart $COMPOSE_SERVICE_NAME
   only:
     - tags # only deploy a real release
   tags:
