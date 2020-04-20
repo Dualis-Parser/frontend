@@ -101,6 +101,7 @@ Build docker dev:
     - docker push "$CI_REGISTRY/$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
   except:
     - master
+    - tags
   tags:
     - docker
     - dualis
