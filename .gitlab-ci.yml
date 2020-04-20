@@ -9,6 +9,7 @@ stages:
   - install
   - verify
   - build
+  - docker-build
   - deploy
 
 image: trion/ng-cli-karma:latest
@@ -70,27 +71,50 @@ Build dev:
     - dualis
     - docker
 
+Build docker release:
+  # Official docker image.
+  image: docker:latest
+  stage: docker-build
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  script:
+    - docker build --pull -t "$CI_REGISTRY/$CI_REGISTRY_IMAGE" .
+    - docker push "$CI_REGISTRY/$CI_REGISTRY_IMAGE"
+  only:
+    - tags
+  tags:
+    - docker
+    - dualis
+
+Build docker dev:
+  # Official docker image.
+  image: docker:latest
+  stage: docker-build
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  script:
+    - docker build --pull -t "$CI_REGISTRY/$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
+    - docker push "$CI_REGISTRY/$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+  except:
+    - master
+    - tags
+  tags:
+    - docker
+    - dualis
+
 Deploy release:
   stage: deploy
   cache: {}  # no cache required for deployment
   script:
-    - rm /opt/services/dualis/website-angular-build/prod/* || true
-    - cp dist/dualis-rework/* /opt/services/dualis/website-angular-build/prod/
+    - cd /opt/services/dualis
+    - docker-compose pull $COMPOSE_SERVICE_NAME
+    - docker-compose restart $COMPOSE_SERVICE_NAME
   only:
     - tags # only deploy a real release
-  tags:
-    - dualis
-    - shell
-
-Deploy dev:
-  stage: deploy
-  cache: {}  # no cache required for deployment
-  script:
-    - rm /opt/services/dualis/website-angular-build/dev/* || true
-    - cp dist/dualis-rework/*  /opt/services/dualis/website-angular-build/dev/
-  except:
-    - master
-    - tags
   tags:
     - dualis
     - shell
