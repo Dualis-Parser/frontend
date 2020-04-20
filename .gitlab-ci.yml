@@ -48,7 +48,6 @@ Build release:
   script:
     - npm run build-prod
   only:
-    - master
     - tags
   artifacts:
     paths:
