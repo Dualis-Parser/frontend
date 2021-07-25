@@ -1,4 +1,4 @@
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 
 import {InternalErrorComponent} from './internal-error.component';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
@@ -9,7 +9,7 @@ describe('InternalErrorComponent', () => {
   let component: InternalErrorComponent;
   let fixture: ComponentFixture<InternalErrorComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [InternalErrorComponent],
       imports: [HttpClientTestingModule, RouterTestingModule]

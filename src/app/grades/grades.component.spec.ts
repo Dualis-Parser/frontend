@@ -1,4 +1,4 @@
-import {async, ComponentFixture, discardPeriodicTasks, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import { ComponentFixture, discardPeriodicTasks, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 
 import {GradesComponent} from './grades.component';
 import {NgxLoadingModule} from 'ngx-loading';
@@ -11,13 +11,12 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {MatCheckboxModule, MatSnackBarModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {environment} from '../../environments/environment';
-import {ApiService} from '../api.service';
 
 describe('GradesComponent', () => {
   let component: GradesComponent;
   let fixture: ComponentFixture<GradesComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [GradesComponent],
       imports: [

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 
 import {LoginComponent} from './login.component';
 import {NgxLoadingModule} from 'ngx-loading';
@@ -12,7 +12,7 @@ describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [LoginComponent],
       imports: [NgxLoadingModule, HttpClientTestingModule, FormsModule, ReactiveFormsModule, RouterTestingModule],

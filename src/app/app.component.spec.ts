@@ -1,4 +1,4 @@
-import {TestBed, async} from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AppComponent} from './app.component';
 import {NavbarComponent} from './navbar/navbar.component';
@@ -8,7 +8,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {FooterComponent} from './footer/footer.component';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule, AngularMaterialModule, MatToolbarModule, HttpClientTestingModule
