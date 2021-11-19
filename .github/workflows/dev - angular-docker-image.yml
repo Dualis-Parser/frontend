@@ -1,14 +1,12 @@
-name: Docker Build and Push
+name: Development - Angular and Docker Build and Push
 
 on:
   push:
     branches:
-      - '*'
-    tags:
-      - 'v*'
+      - '!master'
   pull_request:
     branches:
-      - 'master'
+      - 'development'
 
 jobs:
   build:
@@ -36,7 +34,7 @@ jobs:
       - name: npm ci and npm run build
         run: |
           npm ci
-          npm run build-prod
+          npm run build-dev
 
       - name: Upload angular build artifacts
         uses: actions/upload-artifact@v2
