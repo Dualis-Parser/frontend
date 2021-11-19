@@ -2,9 +2,6 @@
   <div class="row justify-content-center align-items-center mt-5">
     <div class="col-lg-6 col-md-8 col-sm-10 col-12">
       <div class="card">
-        <ngx-loading [show]="loading"
-                     [config]="{animationType: ngxLoadingAnimationTypes.rectangleBounce, primaryColour: '#fff', secondaryColour: '#ccc', backdropBorderRadius: '3px'}"
-                     [template]="loadingTemplate"></ngx-loading>
         <div class="card-body">
           <div
             *ngIf="(angForm.controls['password'].invalid && (angForm.controls['password'].dirty || angForm.controls['password'].touched)) ||

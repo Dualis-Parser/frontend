@@ -1,10 +1,9 @@
 import {Component, Inject, OnInit, TemplateRef} from '@angular/core';
 import {ApiService} from '../api.service';
 import {Router} from '@angular/router';
-import {ngxLoadingAnimationTypes} from 'ngx-loading';
 import {FormControl} from '@angular/forms';
 import {DOCUMENT} from '@angular/common';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {environment} from '../../environments/environment';
 
 
@@ -24,7 +23,6 @@ export class GradesComponent implements OnInit {
   groupCheck: boolean[];
   groupIndeterminate: boolean[];
 
-  public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
   public loadingTemplate: TemplateRef<any>;
 
   constructor(private api: ApiService, private router: Router, @Inject(DOCUMENT) public document: Document, private snackBar: MatSnackBar) {

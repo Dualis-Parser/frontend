@@ -2,7 +2,6 @@ import {Component, OnInit, TemplateRef} from '@angular/core';
 import {ApiService} from '../api.service';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ngxLoadingAnimationTypes} from 'ngx-loading';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +13,6 @@ export class LoginComponent implements OnInit {
   error: string;
   loading = false;
 
-  public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
   public loadingTemplate: TemplateRef<any>;
 
   constructor(private fb: FormBuilder, private api: ApiService, private router: Router) {
