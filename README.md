@@ -1,7 +1,7 @@
 # DualisRework
-[![coverage report](https://gitlab.tandashi.de/DHBW/dualis_parser/website-angular/badges/master/coverage.svg)](https://gitlab.tandashi.de/DHBW/dualis_parser/website-angular/commits/master)
-[![pipeline status](https://gitlab.tandashi.de/DHBW/dualis_parser/website-angular/badges/master/pipeline.svg)](https://gitlab.tandashi.de/DHBW/dualis_parser/website-angular/commits/master)
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.7.
+[![Production - Angular and Docker Build and Push](https://github.com/Dualis-Parser/frontend-angular/actions/workflows/prod-angular-docker-image.yml/badge.svg)](https://github.com/Dualis-Parser/frontend-angular/actions/workflows/prod-angular-docker-image.yml)  
+
+**This version is currently kind of broken as the package ngx-loading is no longer supported**
 
 ## Development server
 
